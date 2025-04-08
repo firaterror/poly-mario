@@ -1,7 +1,5 @@
 import { useRef, useMemo } from 'react';
 import * as THREE from 'three';
-import { useFrame } from '@react-three/fiber';
-import { useGameStore } from '@/store/gameStore';
 
 // Map size defines how large the overall track area is
 export const mapSize = 100;
@@ -23,8 +21,6 @@ const trackWidth = 10;
 
 export default function Track() {
   const trackRef = useRef<THREE.Group>(null);
-  const { setLapCount, setBestLapTime, currentLapTime } = useGameStore();
-  const checkpointTriggered = useRef(false);
 
   // Create a CatmullRomCurve3 from the track points
   const curve = useMemo(() => {
@@ -43,7 +39,6 @@ export default function Track() {
     
     // Create inner and outer track edges
     const innerPoints: THREE.Vector3[] = [];
-    const outerPoints: THREE.Vector3[] = [];
     
     // For each point on the curve, calculate inner and outer points
     for (let i = 0; i < points.length; i++) {
@@ -81,11 +76,6 @@ export default function Track() {
     const geometry = new THREE.ShapeGeometry(trackShape);
     return geometry;
   }, [curve]);
-
-  // Check if player has completed a lap
-  useFrame(() => {
-    // Logic for lap counting...
-  });
 
   return (
     <group ref={trackRef}>
