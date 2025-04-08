@@ -8,7 +8,7 @@ import { useGameStore } from '@/store/gameStore';
 
 export default function Home() {
   const { speed, lapCount, bestLapTime, currentLapTime } = useGameStore();
-  const [startTime, setStartTime] = useState<number>(0);
+  const [startTime] = useState<number>(0);
 
   useEffect(() => {
     const interval = setInterval(() => {

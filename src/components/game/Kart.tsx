@@ -3,7 +3,7 @@ import { useFrame, useThree } from '@react-three/fiber';
 import { useGLTF } from '@react-three/drei';
 import { useGameStore } from '@/store/gameStore';
 import * as THREE from 'three';
-import { trackPoints, mapSize } from './Track';
+import { mapSize } from './Track';
 
 // Preload the kart model
 useGLTF.preload('/kart.glb');
@@ -11,7 +11,7 @@ useGLTF.preload('/kart.glb');
 export default function Kart() {
   const kartRef = useRef<THREE.Group>(null);
   const { scene: kartModel } = useGLTF('/kart.glb');
-  const { speed, setSpeed, isGameStarted } = useGameStore();
+  const { setSpeed, isGameStarted } = useGameStore();
   const keys = useRef<{ [key: string]: boolean }>({});
   const velocity = useRef(new THREE.Vector3());
   const isJumping = useRef(false);

@@ -4,6 +4,12 @@ import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Stats } from '@react-three/drei';
 import { Suspense } from 'react';
 import { useGameStore } from '@/store/gameStore';
+import dynamic from 'next/dynamic';
+
+// Dynamically import components with SSR disabled
+const Kart = dynamic(() => import('./Kart'), { ssr: false });
+const Track = dynamic(() => import('./Track'), { ssr: false });
+const Environment = dynamic(() => import('./Environment'), { ssr: false });
 
 export default function GameScene() {
   const { isGameStarted } = useGameStore();
@@ -30,27 +36,13 @@ export default function GameScene() {
             shadow-camera-bottom={-50}
           />
           
-          <SceneContent showControls={!isGameStarted} />
+          <Environment />
+          <Track />
+          <Kart />
+          {!isGameStarted && <OrbitControls />}
           <Stats />
         </Suspense>
       </Canvas>
     </div>
-  );
-}
-
-// This component will be loaded dynamically to avoid SSR issues with Three.js
-function SceneContent({ showControls }: { showControls: boolean }) {
-  // Use dynamic import using React.lazy
-  const Kart = require('./Kart').default;
-  const Track = require('./Track').default;
-  const Environment = require('./Environment').default;
-
-  return (
-    <>
-      <Environment />
-      <Track />
-      <Kart />
-      {showControls && <OrbitControls />}
-    </>
   );
 } 
