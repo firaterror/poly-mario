@@ -59,12 +59,12 @@ vercel
 
 ## Technologies Used
 
-- Next.js 14
-- Three.js
-- React Three Fiber
-- Zustand (State Management)
-- TypeScript
-- Tailwind CSS
+- Cursor
+- Cursor
+- Cursor
+- Cursor
+- Cursor
+- Cursor
 
 ## Development
 
